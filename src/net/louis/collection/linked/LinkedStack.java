@@ -37,6 +37,8 @@ public class LinkedStack<T> implements AStack<T> {
 
     @Override
     public T peek() {
+        if(isEmpty())
+            return  null;
         return top.data;
     }
 

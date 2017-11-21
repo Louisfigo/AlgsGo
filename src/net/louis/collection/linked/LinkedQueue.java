@@ -48,6 +48,62 @@ public class LinkedQueue<T> implements Queue<T> {
         return size;
     }
 
+    public void deleteTail()
+    {
+       if(head == null)
+           throw new RuntimeException("Queue is Empty,no tail could be deleted");
+       else
+       {
+           Node<T> cp = head;
+
+           while(cp.next != null)
+           {
+               if(cp.next.next == null)
+               {
+                   cp.next = null;
+                   tail = cp;
+               }
+               else
+               {
+                   cp = cp.next;
+               }
+           }
+       }
+    }
+
+    public void deleteBySequence(int k)
+    {
+        if(head == null)
+            throw  new RuntimeException("Queue is Empty,no tail could be deleted");
+        else
+        {
+            int i =1 ;
+            Node<T> cp = head;
+            Node<T> pcp = null;
+
+            while(i<k)
+            {
+                pcp = cp;
+                cp = cp.next;
+                if(cp == null)
+                    throw new RuntimeException("K doesn't exists");
+                i++;
+            }
+
+            if(cp == tail)
+            {
+                pcp.next = null;
+                tail = pcp;
+            }
+            else
+            {
+                pcp.next =cp.next;
+            }
+
+
+        }
+    }
+
     public static void main(String args[])
     {
         LinkedQueue<String> queue = new LinkedQueue<>();
