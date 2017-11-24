@@ -11,6 +11,18 @@ public class LinkedQueue<T> implements Queue<T> {
     private Node<T> tail;
     private int size =0;
 
+    public Queue<T> copy()
+    {
+
+        Queue<T> newCopy = new LinkedQueue<T>();
+
+        while(!this.isEmpty())
+        {
+            newCopy.enqueue(this.dequeue());
+        }
+        return null;
+    }
+
     @Override
     public void enqueue(T t) {
 

@@ -8,7 +8,15 @@ public class LinkedStack<T> implements AStack<T> {
 
     private Node<T> top;
 
+    private  Node<T> bottom;
+
     private int size = 0;
+
+    public void  enqueue(T t)
+    {
+        bottom.next = new Node<>(t,null);
+        bottom = bottom.next;
+    }
 
     @Override
     public void push(T t) {
@@ -16,6 +24,8 @@ public class LinkedStack<T> implements AStack<T> {
             Node<T> oldTop = top;
             top = new Node<>(t,null);
             top.next = oldTop;
+            if(top.next == null)
+                bottom = top;
             size ++;
 
     }
