@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class MergeSorter<T> extends SorterTemplate<T>{
 
-    private final static int SWITCH_SORT_CUT_OFF = 5;
+    private final static int SWITCH_SORT_CUT_OFF = 2;
     private T[] aux ;
 
     private InsertionSorter<T> insertionSorter = new InsertionSorter<>();
