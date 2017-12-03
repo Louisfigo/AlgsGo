@@ -7,7 +7,7 @@ import java.util.Comparator;
 public abstract  class SorterTemplate<T> implements Sorter<T> {
 
 
-    private Comparator<T> comparator ;
+    protected Comparator<T> comparator ;
 
     public void setComparator(Comparator<T> comparator) {
         this.comparator = comparator;

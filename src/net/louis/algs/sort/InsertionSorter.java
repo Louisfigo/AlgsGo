@@ -28,5 +28,24 @@ public class InsertionSorter<T> extends SorterTemplate<T>{
 
     }
 
+    public void sort(T[] input,int low,int hi) {
+
+        for(int i=low+1;i<=hi;i++)
+        {
+            T tobeInerted = input[i];
+            int j=i;
+            while(j> low && less(tobeInerted,input[j-1]))
+            {
+                input[j] = input[j-1];
+                j--;
+            }
+
+            input[j] = tobeInerted;
+
+
+        }
+
+    }
+
 
 }
