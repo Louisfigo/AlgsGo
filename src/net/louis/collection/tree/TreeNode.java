@@ -2,6 +2,7 @@ package net.louis.collection.tree;
 
 public class TreeNode <K,V> {
 
+
     K key;
 
     V value;
@@ -13,6 +14,8 @@ public class TreeNode <K,V> {
     int treeSize;
 
     int height;
+
+
 
 
     public TreeNode(K key, V value, int treeSize,int height) {
