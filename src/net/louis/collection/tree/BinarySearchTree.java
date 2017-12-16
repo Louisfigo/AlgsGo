@@ -2,6 +2,8 @@ package net.louis.collection.tree;
 
 import java.security.Key;
 import java.time.temporal.ValueRange;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import static net.louis.CompareUtil.compare;
 
@@ -41,14 +43,14 @@ public class BinarySearchTree <K,V> {
 
     public  void put(K key,V value)
     {
-        root =put(key,value,root);
+        root =put(key,value,root,0);
     }
 
-    private TreeNode<K,V> put (K key, V value,TreeNode<K,V> node)
+    private TreeNode<K,V> put (K key, V value,TreeNode<K,V> node,int height)
     {
         if(node == null)
         {
-            node = new TreeNode<>(key,value,1);
+            node = new TreeNode<>(key,value,1,height+1);
             return node;
         }
 
@@ -61,12 +63,12 @@ public class BinarySearchTree <K,V> {
 
         else if(cmpResult > 0)
         {
-            node.right= put(key,value,node.right);
+            node.right= put(key,value,node.right,node.height);
         }
 
         else if(cmpResult < 0)
         {
-            node.left = put(key,value,node.left);
+            node.left = put(key,value,node.left,node.height);
         }
 
         node.treeSize = size(node.left)+size(node.right) + 1;
@@ -279,11 +281,54 @@ public class BinarySearchTree <K,V> {
         if(node == null)
             return;
 
-
         printWithMidLoop(node.left);
 
         printWithMidLoop(node.right);
         System.out.println(node.value);
+
+    }
+
+    public void printWithLevel()
+    {
+
+        TreeNode<K,V> tn  = null;
+
+        Queue<TreeNode<K,V>> holder = new LinkedList<>();
+
+
+        if(root !=null)
+            holder.offer(root);
+
+        int prevHeight = root.height ;
+
+        String line = "";
+
+        while(!holder.isEmpty())
+        {
+            tn = holder.poll();
+            if(tn !=null)
+            {
+                if(tn.height > prevHeight)
+                {
+                    System.out.println(line);
+                    line = tn.key.toString();
+                }
+
+                else
+                    line += tn.key;
+
+                prevHeight = tn.height;
+            }
+
+            if(tn.left!=null)
+                holder.offer(tn.left);
+
+            if(tn.right!=null)
+                holder.offer(tn.right);
+
+        }
+
+        System.out.println(line);
 
     }
 
@@ -292,21 +337,23 @@ public class BinarySearchTree <K,V> {
         BinarySearchTree<Integer,String> bst =new BinarySearchTree<>();
         bst.put(5,"5");
         bst.put(1,"1");
-        bst.put(3,"3");
-        bst.put(0,"0");
         bst.put(6,"6");
-        bst.put(4,"4");
-        bst.put(7,"7");
 
+       /* bst.put(3,"3");
+        bst.put(0,"0");
+        bst.put(4,"4");
+        bst.put(7,"7");*/
+
+        bst.printWithLevel();
        /* System.out.println(bst.min());
         System.out.println(bst.max());
         System.out.println(bst.celling(2));
         System.out.println(bst.select(5));
-        System.out.println(bst.rank(6));*/
+        System.out.println(bst.rank(6));
 
        bst.delete(1);
         System.out.println(bst.size());
-       bst.printWithMidLoop();
+       bst.printWithMidLoop();*/
 
 
     }

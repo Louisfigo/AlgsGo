@@ -12,9 +12,13 @@ public class TreeNode <K,V> {
 
     int treeSize;
 
-    public TreeNode(K key, V value, int treeSize) {
+    int height;
+
+
+    public TreeNode(K key, V value, int treeSize,int height) {
         this.key = key;
         this.value = value;
         this.treeSize = treeSize;
+        this.height = height;
     }
 }
