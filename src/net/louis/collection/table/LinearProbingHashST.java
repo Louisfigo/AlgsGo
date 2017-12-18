@@ -1,5 +1,10 @@
 package net.louis.collection.table;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 /**
  * Created by Louis on 2017/12/18.
  */
@@ -133,14 +138,38 @@ public class LinearProbingHashST <K,V> {
     }
     public static void main(String args[])
     {
-        LinearProbingHashST<String,Integer> sst = new LinearProbingHashST<>();
-        sst.put("G",1);
-        sst.put("L",2);
-        sst.put("A",3);
-        sst.put("W",4);
-        sst.printKeys();
-        System.out.println("-----------------------------");
-        sst.delete("G");
-        sst.printKeys();
+        LinearProbingHashST<String,Integer> sst = new LinearProbingHashST<>(2000000);
+        long msb = System.currentTimeMillis();
+
+        String fileName = "D:\\j2eeWp\\algs4-data\\leipzig1M.txt";
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+
+            stream.forEach(s->
+            {
+                String []oneLine = s.split(" ");
+                for(String s1:oneLine)
+                {
+
+                    if(sst.contains(s1) && s1.length() >8)
+                    {
+                        int tc = sst.get(s1)+1;
+                        sst.put(s1,tc);
+                    }
+                    else
+                    {
+                        sst.put(s1,1);
+
+                    }
+                }
+
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        long msn = System.currentTimeMillis();
+
+        System.out.println(msb-msn);
+
     }
 }

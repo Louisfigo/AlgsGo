@@ -2,6 +2,11 @@ package net.louis.collection.tree;
 
 import net.louis.CompareUtil;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
 import static net.louis.CompareUtil.compare;
 
 public class RedBlackBinarySearchTree <K,V> {
@@ -125,4 +130,54 @@ public class RedBlackBinarySearchTree <K,V> {
             return get(node.right,key);
     }
 
+    public void printWithMidLoop()
+    {
+        printWithMidLoop(root);
+    }
+
+    public void printWithMidLoop(RBTreeNode<K,V> node)
+    {
+        if(node == null)
+            return;
+
+        printWithMidLoop(node.left);
+
+        printWithMidLoop(node.right);
+        System.out.println(node.key + "|" +node.value);
+
+    }
+    public  static  void main(String args[])
+    {
+        RedBlackBinarySearchTree<String,Integer> sst = new RedBlackBinarySearchTree<>();
+        String fileName = "D:\\j2eeWp\\algs4-data\\leipzig1M.txt";
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+
+            stream.forEach(s->
+            {
+                String []oneLine = s.split(" ");
+                  for(String s1:oneLine)
+                {
+
+               if(sst.get(s1)!=null)
+                   {
+                       int i = sst.get(s1) +1;
+                       sst.put(s1,i);
+                   }
+
+                   else
+                   {
+                       sst.put(s1,1);
+                   }
+
+                }
+
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        sst.printWithMidLoop();
+
+    }
 }
