@@ -10,4 +10,6 @@ public interface GraphSearch {
     public boolean isConnected(int v);
 
     public int countConnectedV();
+
+    public void  search (BasicGraph bg,int stp);
 }
