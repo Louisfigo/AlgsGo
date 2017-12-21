@@ -1,6 +1,8 @@
 package net.louis.collection.tree;
 
 import net.louis.CompareUtil;
+import net.louis.collection.linked.LinkedStack;
+import sun.plugin.javascript.navig.Link;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -290,6 +292,25 @@ public class RedBlackBinarySearchTree <K,V> {
     public void printWithMidLoop()
     {
         printWithMidLoop(root);
+    }
+
+    public Iterable<K> keys()
+    {
+        LinkedStack<K> keys = new LinkedStack<>();
+        keys(root,keys);
+
+        return keys;
+    }
+
+    public void keys(RBTreeNode<K,V> node,LinkedStack<K> keyStack)
+    {
+        if(node == null)
+            return;
+
+        keys(node.left,keyStack);
+
+        keys(node.right,keyStack);
+        keyStack.push(node.key);
     }
 
     public void printWithMidLoop(RBTreeNode<K,V> node)
